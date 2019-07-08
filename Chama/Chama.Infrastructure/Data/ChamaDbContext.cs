@@ -19,6 +19,19 @@ namespace Chama.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<StudentSession>(entity => {
+                entity.HasKey(e => new { e.StudentId, e.SessionId });
+            });
+            modelBuilder.Entity<StudentSession>(entity => {
+                entity.HasOne(e => e.Student)
+                .WithMany(s => s.StudentSessions)
+                .HasForeignKey(e => e.StudentId);
+            });
+            modelBuilder.Entity<StudentSession>(entity => {
+                entity.HasOne(e => e.Session)
+                .WithMany(s => s.StudentSessions)
+                .HasForeignKey(e => e.SessionId);
+            });
         }
     }
 }

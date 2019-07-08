@@ -15,6 +15,6 @@ namespace Chama.Core.Entities
         public virtual Course Course { get; set; }
         public int TeacherId { get; set; }
         public virtual Teacher Teacher { get; set; }
-        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<StudentSession> StudentSessions { get; set; }
     }
 }

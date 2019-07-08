@@ -10,7 +10,6 @@ namespace Chama.Core.Entities
         public string LastName { get; set; }
         public string Email { get; set; }
         public int Age { get; set; }
-
-        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<StudentSession> StudentSessions { get; set; }
     }
 }
