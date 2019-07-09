@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Chama.Core.Extensions;
 using Chama.Core.Interfaces;
+using Chama.Core.Services;
 using Chama.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NLog;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Chama.API
@@ -21,6 +25,7 @@ namespace Chama.API
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -41,10 +46,12 @@ namespace Chama.API
             });
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(AsyncRepository<>));
+            services.AddSingleton<ILoggerManager, LoggerManager>();
+            services.AddTransient<IStudentService, StudentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerManager logger)
         {
             if (env.IsDevelopment())
             {
@@ -62,6 +69,10 @@ namespace Chama.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
+            //app.ConfigureExceptionHandler(logger);
+            app.ConfigureCustomExceptionMiddleware();
+
 
             app.UseHttpsRedirection();
             app.UseMvc();
