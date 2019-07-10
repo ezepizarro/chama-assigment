@@ -25,22 +25,22 @@ namespace Chama.Core.Services
 
         }
 
-        public async Task<List<Course>> GetAll()
+        public async Task<List<Course>> GetAllAsync()
         {
-            return await _courseRepository.GetAll();
+            return await _courseRepository.GetAllAsync();
         }
 
         public bool CheckAvailability(int courseId)
         {
-            var session = _sessionRepository.GetWhere(x => x.CourseId == courseId).Result.FirstOrDefault();
+            var session = _sessionRepository.GetWhereAsync(x => x.CourseId == courseId).Result.FirstOrDefault();
  
             return session.MaxCapacity - session.NumberOfStudents + 1 > 0;
         }
 
-        public async Task<StudentSession> AddStudentSession(int courseId, int studentId)
+        public async Task<StudentSession> AddStudentSessionAsync(int courseId, int studentId)
         {
-            var session = _sessionRepository.GetWhere(x => x.CourseId == courseId).Result.FirstOrDefault();
-            var student = await _studentRepository.GetById(studentId);
+            var session = _sessionRepository.GetWhereAsync(x => x.CourseId == courseId).Result.FirstOrDefault();
+            var student = await _studentRepository.GetByIdAsync(studentId);
 
             var studentSession = new StudentSession
             {
@@ -50,7 +50,7 @@ namespace Chama.Core.Services
                 ModifiedDate = DateTime.Now
             };
 
-            await _ssRepository.Add(studentSession);
+            await _ssRepository.AddAsync(studentSession);
 
             session.NumberOfStudents += 1;
             session.AvgAge = session.StudentSessions.Sum(x => x.Student.Age) / session.NumberOfStudents;
@@ -65,7 +65,7 @@ namespace Chama.Core.Services
                 session.MinAge = student.Age;
             }
 
-            await _sessionRepository.Update(session);
+            await _sessionRepository.UpdateAsync(session);
 
             return studentSession;
         }

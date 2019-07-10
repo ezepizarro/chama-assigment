@@ -8,8 +8,8 @@ namespace Chama.Core.Interfaces
 {
     public interface ICoursesService
     {
-        Task<List<Course>> GetAll();
+        Task<List<Course>> GetAllAsync();
         bool CheckAvailability(int courseId);
-        Task<StudentSession> AddStudentSession(int courseId, int studentId);
+        Task<StudentSession> AddStudentSessionAsync(int courseId, int studentId);
     }
 }

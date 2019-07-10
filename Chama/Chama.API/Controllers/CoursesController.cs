@@ -49,7 +49,7 @@ namespace Chama.API.Controllers
                 });
             }
 
-            var studentSession = await _coursesService.AddStudentSession(model.CourseId, model.StudentId);
+            var studentSession = await _coursesService.AddStudentSessionAsync(model.CourseId, model.StudentId);
 
             _logger.LogInfo("Student sign up to course created successfully");
 

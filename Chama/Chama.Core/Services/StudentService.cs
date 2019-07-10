@@ -18,13 +18,13 @@ namespace Chama.Core.Services
 
         public async Task<Student> FindById(int id)
         {
-            return await _repository.GetById(id);
+            return await _repository.GetByIdAsync(id);
         }
 
         public async Task Add(Student student)
         {
             //Check availability
-            await _repository.Add(student);
+            await _repository.AddAsync(student);
         }
     }
 }

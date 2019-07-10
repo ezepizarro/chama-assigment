@@ -18,12 +18,12 @@ namespace Chama.Core.Services
 
         public async Task<List<Session>> GetAll()
         {
-            return await _sessionRepository.GetAll();
+            return await _sessionRepository.GetAllAsync();
         }
 
         public async Task<Session> GetById(int id)
         {
-            return await _sessionRepository.GetById(id);
+            return await _sessionRepository.GetByIdAsync(id);
         }
     }
 }
