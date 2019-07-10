@@ -16,6 +16,11 @@ namespace Chama.Core.Services
             _repository = repository;
         }
 
+        public async Task<Student> FindById(int id)
+        {
+            return await _repository.GetById(id);
+        }
+
         public async Task Add(Student student)
         {
             //Check availability

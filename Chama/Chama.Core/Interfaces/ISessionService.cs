@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Chama.Core.Interfaces
 {
-    public interface IStudentService
+    public interface ISessionService
     {
-        Task Add(Student student);
-        Task<Student> FindById(int id);
+        Task<List<Session>> GetAll();
+        Task<Session> GetById(int id);
     }
 }

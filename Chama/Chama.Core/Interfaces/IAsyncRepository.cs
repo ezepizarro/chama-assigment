@@ -16,8 +16,8 @@ namespace Chama.Core.Interfaces
         Task Update(T entity);
         Task Remove(T entity);
 
-        Task<IEnumerable<T>> GetAll();
-        Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate);
+        Task<List<T>> GetAll();
+        Task<List<T>> GetWhere(Expression<Func<T, bool>> predicate);
 
         Task<int> CountAll();
         Task<int> CountWhere(Expression<Func<T, bool>> predicate);

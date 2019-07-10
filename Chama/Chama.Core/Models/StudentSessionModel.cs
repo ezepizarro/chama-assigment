@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Chama.Core.Models
 {
-    public class SignUpModel
+    public class StudentSessionModel
     {
+        public StudentModel Student { get; set; }
     }
 }
