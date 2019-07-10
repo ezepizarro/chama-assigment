@@ -14,13 +14,13 @@ namespace Chama.API.Controllers
     [ApiController]
     public class CoursesController : ControllerBase
     {
-        private readonly ILoggerManager _logger;
+        private readonly ILoggerManagerService _logger;
         private readonly ICoursesService _coursesService;
         private readonly IStudentService _studentService;
         private readonly IServiceBusService _serviceBusService;
         private readonly IMapper _mapper;
 
-        public CoursesController(ICoursesService coursesService, IStudentService studentService, IServiceBusService serviceBusService, IMapper mapper, ILoggerManager logger)
+        public CoursesController(ICoursesService coursesService, IStudentService studentService, IServiceBusService serviceBusService, IMapper mapper, ILoggerManagerService logger)
         {
             _coursesService = coursesService;
             _studentService = studentService;
@@ -32,6 +32,9 @@ namespace Chama.API.Controllers
         // Part 1: API for signing up
         // POST: api/Courses/SignUp
         [HttpPost("SignUp")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
         public async Task<ActionResult> SignUp([FromBody] CourseSignUpModel model)
         {
             _logger.LogInfo("SignUp called");
@@ -44,7 +47,7 @@ namespace Chama.API.Controllers
             {
                 return new JsonResult(new
                 {
-                    HttpContext.Response.StatusCode,
+                    StatusCodes.Status200OK,
                     Message = "Course at max capacity"
                 });
             }
@@ -59,6 +62,8 @@ namespace Chama.API.Controllers
         // Part 2: Scaling out
         // POST: api/Courses/SignUp/MessageBus
         [HttpPost("SignUp/MessageBus")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+
         public async Task<ActionResult> SignUpMessageBus([FromBody] CourseSignUpModel model)
         {
             await _serviceBusService.SendMessage(new { model.StudentId, model.CourseId, Message = "QUEUED" });

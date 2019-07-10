@@ -6,12 +6,12 @@ using System.Text;
 
 namespace Chama.Core.Services
 {
-    public class LoggerManager : ILoggerManager
+    public class LoggerManagerService : ILoggerManagerService
     {
 
         private static ILogger logger = LogManager.GetCurrentClassLogger();
 
-        public LoggerManager()
+        public LoggerManagerService()
         {
         }
 

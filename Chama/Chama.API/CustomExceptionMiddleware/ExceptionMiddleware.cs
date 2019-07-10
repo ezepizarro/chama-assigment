@@ -12,9 +12,9 @@ namespace Chama.API.CustomExceptionMiddleware
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILoggerManager _logger;
+        private readonly ILoggerManagerService _logger;
 
-        public ExceptionMiddleware(RequestDelegate next, ILoggerManager logger)
+        public ExceptionMiddleware(RequestDelegate next, ILoggerManagerService logger)
         {
             _logger = logger;
             _next = next;

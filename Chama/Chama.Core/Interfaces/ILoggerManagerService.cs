@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Chama.Core.Interfaces
 {
-    public interface ILoggerManager
+    public interface ILoggerManagerService
     {
         void LogInfo(string message);
         void LogWarn(string message);

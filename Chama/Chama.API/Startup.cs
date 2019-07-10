@@ -61,14 +61,14 @@ namespace Chama.API
             // DI
             services.AddScoped(typeof(IAsyncRepository<>), typeof(AsyncRepository<>));
             services.AddScoped<IServiceBusService, ServiceBusService>();
-            services.AddSingleton<ILoggerManager, LoggerManager>();
+            services.AddSingleton<ILoggerManagerService, LoggerManagerService>();
             services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<ICoursesService, CoursesService>();
             services.AddTransient<ISessionService, SessionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerManager logger)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerManagerService logger)
         {
             if (env.IsDevelopment())
             {

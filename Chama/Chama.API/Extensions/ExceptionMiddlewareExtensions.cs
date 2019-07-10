@@ -10,7 +10,7 @@ namespace Chama.Core.Extensions
 {
     public static class ExceptionMiddlewareExtensions
     {
-        public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILoggerManager logger)
+        public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILoggerManagerService logger)
         {
             app.UseExceptionHandler(appError =>
             {

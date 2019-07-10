@@ -14,11 +14,11 @@ namespace Chama.API.Controllers
     [ApiController]
     public class SessionsController : ControllerBase
     {
-        private readonly ILoggerManager _logger;
+        private readonly ILoggerManagerService _logger;
         private readonly IMapper _mapper;
         private readonly ISessionService _sessionService;
 
-        public SessionsController(IMapper mapper, ILoggerManager logger, ISessionService sessionService)
+        public SessionsController(IMapper mapper, ILoggerManagerService logger, ISessionService sessionService)
         {
             _logger = logger;
             _sessionService = sessionService;
@@ -27,6 +27,7 @@ namespace Chama.API.Controllers
 
         // Part 3: Querying
         [HttpGet]
+        [ProducesResponseType(typeof(SessionListModel), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<SessionListModel>>> List()
         {
             var sessions = await _sessionService.GetAll();
@@ -35,6 +36,7 @@ namespace Chama.API.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [ProducesResponseType(typeof(SessionListModel), StatusCodes.Status200OK)]
         public async Task<ActionResult<SessionDetailModel>> Details(int id)
         {
             var session = await _sessionService.GetById(id);

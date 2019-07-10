@@ -16,12 +16,12 @@ namespace Chama.API.Controllers
     [ApiController]
     public class StudentsController : ControllerBase
     {
-        private readonly ILoggerManager _logger;
+        private readonly ILoggerManagerService _logger;
         private readonly IStudentService _studentService;
         private readonly IServiceBusService _serviceBusService;
         private readonly IMapper _mapper;
 
-        public StudentsController(ILoggerManager logger, IStudentService studentService, IServiceBusService serviceBusService, IMapper mapper)
+        public StudentsController(ILoggerManagerService logger, IStudentService studentService, IServiceBusService serviceBusService, IMapper mapper)
         {
             _logger = logger;
             _studentService = studentService;
@@ -29,16 +29,9 @@ namespace Chama.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            _serviceBusService.SendMessage(new { StudentId = 1, Message = "QUEUED" });
-
-            return new string[] { "value1", "value2" };
-        }
-
         // POST: api/Students
         [HttpPost]
+        [ProducesResponseType(typeof(Student), StatusCodes.Status201Created)]
         public async Task<ActionResult<Student>> Post(CreateStudentModel studentModel)
         {
             _logger.LogInfo("Student creation called");
