@@ -21,12 +21,12 @@ An api to sign-up students to courses
 
 ## Overview
 |API|Description|
-|--|--|--|
-|GET /api/Sessions  | Get all sessions (Part 3 of assigment) |
-|GET /api/Sessions/{id}  | Get one session (Part 3 of assigment) |
-|POST /api/Courses/SignUp| Sign up a student (Part 1 of assigment) |
-|POST /api/Courses/SignUp/MessageBus  | Sing up a student async (Part 2 of assigment)|
-|POST /api/Students  | Add a new student |
+|--|--|
+|GET /api/Sessions  | Get all sessions (Part 3 of assigment) 
+|GET /api/Sessions/{id}  | Get one session (Part 3 of assigment) 
+|POST /api/Courses/SignUp| Sign up a student (Part 1 of assigment)
+|POST /api/Courses/SignUp/MessageBus  | Sing up a student async (Part 2 of assigment)
+|POST /api/Students  | Add a new student 
 
 ## Usage
 
