@@ -30,16 +30,17 @@ namespace Chama.Core.Services
             return await _courseRepository.GetAllAsync();
         }
 
-        public bool CheckAvailability(int courseId)
+        public async Task<bool> CheckAvailabilityAsync(int courseId)
         {
-            var session = _sessionRepository.GetWhereAsync(x => x.CourseId == courseId).Result.FirstOrDefault();
- 
-            return session.MaxCapacity - session.NumberOfStudents + 1 > 0;
+            var session = await _sessionRepository.FirstOrDefaultAsync(x => x.CourseId == courseId);
+            session.NumberOfStudents += 1;
+
+            return session.MaxCapacity - session.NumberOfStudents > 0;
         }
 
         public async Task<StudentSession> AddStudentSessionAsync(int courseId, int studentId)
         {
-            var session = _sessionRepository.GetWhereAsync(x => x.CourseId == courseId).Result.FirstOrDefault();
+            var session = await _sessionRepository.FirstOrDefaultAsync(x => x.CourseId == courseId);
             var student = await _studentRepository.GetByIdAsync(studentId);
 
             var studentSession = new StudentSession

@@ -9,7 +9,7 @@ namespace Chama.Core.Interfaces
     public interface ICoursesService
     {
         Task<List<Course>> GetAllAsync();
-        bool CheckAvailability(int courseId);
+        Task<bool> CheckAvailabilityAsync(int courseId);
         Task<StudentSession> AddStudentSessionAsync(int courseId, int studentId);
     }
 }

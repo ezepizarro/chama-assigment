@@ -43,7 +43,7 @@ namespace Chama.API.Controllers
             if (student == null) { return NotFound($"studentId: {model.StudentId}"); };
 
             //Check Availability
-            if (!_coursesService.CheckAvailability(model.CourseId))
+            if (!_coursesService.CheckAvailabilityAsync(model.CourseId).Result)
             {
                 return new JsonResult(new
                 {
