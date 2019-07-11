@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chama.Core.Tests", "Chama.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chama.Infrastructure.Tests", "Chama.Infrastructure.Tests\Chama.Infrastructure.Tests.csproj", "{FD6A3E5B-B4EA-42F8-BB65-867E2DF427F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chama.WorkerFunction", "Chama.WorkerFunction\Chama.WorkerFunction.csproj", "{CF08E78A-2E12-4BC8-8F64-CB3CAAE13A1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{FD6A3E5B-B4EA-42F8-BB65-867E2DF427F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD6A3E5B-B4EA-42F8-BB65-867E2DF427F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD6A3E5B-B4EA-42F8-BB65-867E2DF427F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF08E78A-2E12-4BC8-8F64-CB3CAAE13A1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF08E78A-2E12-4BC8-8F64-CB3CAAE13A1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF08E78A-2E12-4BC8-8F64-CB3CAAE13A1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF08E78A-2E12-4BC8-8F64-CB3CAAE13A1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{B41CFC1A-3FC2-4741-8EEE-9D3222C42C3E} = {00FE1278-CE42-45D8-82BB-61CEB7066DC9}
 		{6B548E78-3908-48CC-B27B-9A7A9D861873} = {8BECEF9A-1861-4B4C-BC49-E1C6E3BBD810}
 		{FD6A3E5B-B4EA-42F8-BB65-867E2DF427F5} = {8BECEF9A-1861-4B4C-BC49-E1C6E3BBD810}
+		{CF08E78A-2E12-4BC8-8F64-CB3CAAE13A1E} = {00FE1278-CE42-45D8-82BB-61CEB7066DC9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {624DEBF7-7FED-460C-AF9B-AAD027EFD942}

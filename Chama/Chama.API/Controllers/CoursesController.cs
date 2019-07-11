@@ -44,7 +44,11 @@ namespace Chama.API.Controllers
             var student = await _studentService.FindById(model.StudentId);
             if (student == null) {
                 _logger.LogWarn($"Sign Up | Student not found {model.StudentId}");
-                return NotFound($"studentId: {model.StudentId}");
+                return NotFound(new
+                {
+                    StatusCodes.Status404NotFound,
+                    Message = "Student not found " + model.StudentId
+                });
             };
 
             //Check Availability
@@ -75,11 +79,23 @@ namespace Chama.API.Controllers
         {
             _logger.LogTrace("Post to SignUp/MessageBus");
 
-            await _serviceBusService.SendMessage(new { model.StudentId, model.CourseId, Message = "QUEUED" });
+            var student = await _studentService.FindById(model.StudentId);
+            if (student == null)
+            {
+                _logger.LogWarn($"Sign Up MessageBus | Student not found {model.StudentId}");
+                return NotFound(new
+                {
+                    StatusCodes.Status404NotFound,
+                    Message = "Student not found " + model.StudentId
+                });
+            };
+
+            await _serviceBusService.SendMessage(new { model.StudentId, model.CourseId, student.Email });
 
             _logger.LogInfo("Student sign up send to message bus successfully");
 
             return CreatedAtAction(nameof(SignUpMessageBus), "Message Sent");
         }
+
     }
 }
