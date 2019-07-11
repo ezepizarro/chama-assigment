@@ -18,13 +18,21 @@ namespace Chama.API.Controllers
         private readonly ICoursesService _coursesService;
         private readonly IStudentService _studentService;
         private readonly IServiceBusService _serviceBusService;
+        private readonly IStudentSessionService _studentSessionService;
         private readonly IMapper _mapper;
 
-        public CoursesController(ICoursesService coursesService, IStudentService studentService, IServiceBusService serviceBusService, IMapper mapper, ILoggerManagerService logger)
+        public CoursesController(ICoursesService coursesService,
+            IStudentService studentService,
+            IServiceBusService serviceBusService,
+            IStudentSessionService studentSessionService,
+            IMapper mapper,
+            ILoggerManagerService logger)
         {
             _coursesService = coursesService;
             _studentService = studentService;
             _serviceBusService = serviceBusService;
+            _serviceBusService = serviceBusService;
+            _studentSessionService = studentSessionService;
             _logger = logger;
             _mapper = mapper;
         }
@@ -34,7 +42,7 @@ namespace Chama.API.Controllers
         [HttpPost("SignUp")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status201Created)]
-
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> SignUp([FromBody] CourseSignUpModel model)
         {
             _logger.LogTrace("Post to SignUp");
@@ -46,7 +54,7 @@ namespace Chama.API.Controllers
                 _logger.LogWarn($"Sign Up | Student not found {model.StudentId}");
                 return NotFound(new
                 {
-                    StatusCodes.Status404NotFound,
+                    StatusCode = StatusCodes.Status404NotFound,
                     Message = "Student not found " + model.StudentId
                 });
             };
@@ -55,13 +63,24 @@ namespace Chama.API.Controllers
             if (!_coursesService.CheckAvailabilityAsync(model.CourseId).Result)
             {
                 _logger.LogWarn($"Sign Up | Max capacity reached {model.CourseId}");
-                return new JsonResult(new
+                return Unauthorized(new
                 {
-                    StatusCodes.Status200OK,
+                    StatusCode = StatusCodes.Status401Unauthorized,
                     Message = "Course at max capacity"
                 });
             }
 
+            //Check if student already signed
+            if (await _studentSessionService.CheckIfAlreadySignedIn(model.StudentId, model.CourseId))
+            {
+                _logger.LogWarn($"Sign Up | Student already signed in {model.StudentId}");
+                return BadRequest (new
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "Student already signed In"
+                });
+            };
+            
             //Add student to session
             await _coursesService.AddStudentSessionAsync(model.CourseId, model.StudentId);
 
@@ -74,7 +93,6 @@ namespace Chama.API.Controllers
         // POST: api/Courses/SignUp/MessageBus
         [HttpPost("SignUp/MessageBus")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-
         public async Task<ActionResult> SignUpMessageBus([FromBody] CourseSignUpModel model)
         {
             _logger.LogTrace("Post to SignUp/MessageBus");

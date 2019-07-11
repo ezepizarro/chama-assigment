@@ -65,6 +65,7 @@ namespace Chama.API
             services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<ICoursesService, CoursesService>();
             services.AddTransient<ISessionService, SessionService>();
+            services.AddTransient<IStudentSessionService, StudentSessionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
