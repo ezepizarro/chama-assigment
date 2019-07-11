@@ -47,8 +47,7 @@ namespace Chama.Core.Services
             {
                 SessionId = session.Id,
                 StudentId = studentId,
-                CreatedDate = DateTime.Now,
-                ModifiedDate = DateTime.Now
+                CreatedDate = DateTime.Now
             };
 
             await _ssRepository.AddAsync(studentSession);

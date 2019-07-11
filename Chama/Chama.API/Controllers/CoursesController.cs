@@ -33,18 +33,24 @@ namespace Chama.API.Controllers
         // POST: api/Courses/SignUp
         [HttpPost("SignUp")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
 
         public async Task<ActionResult> SignUp([FromBody] CourseSignUpModel model)
         {
-            _logger.LogInfo("SignUp called");
+            _logger.LogTrace("Post to SignUp");
+            _logger.LogInfo($"SignUp called: {model}");
 
+            //Check if student exists
             var student = await _studentService.FindById(model.StudentId);
-            if (student == null) { return NotFound($"studentId: {model.StudentId}"); };
+            if (student == null) {
+                _logger.LogWarn($"Sign Up | Student not found {model.StudentId}");
+                return NotFound($"studentId: {model.StudentId}");
+            };
 
             //Check Availability
             if (!_coursesService.CheckAvailabilityAsync(model.CourseId).Result)
             {
+                _logger.LogWarn($"Sign Up | Max capacity reached {model.CourseId}");
                 return new JsonResult(new
                 {
                     StatusCodes.Status200OK,
@@ -52,11 +58,12 @@ namespace Chama.API.Controllers
                 });
             }
 
-            var studentSession = await _coursesService.AddStudentSessionAsync(model.CourseId, model.StudentId);
+            //Add student to session
+            await _coursesService.AddStudentSessionAsync(model.CourseId, model.StudentId);
 
             _logger.LogInfo("Student sign up to course created successfully");
 
-            return Ok();
+            return CreatedAtAction(nameof(SignUp), "Student Signed up");
         }
 
         // Part 2: Scaling out
@@ -66,7 +73,11 @@ namespace Chama.API.Controllers
 
         public async Task<ActionResult> SignUpMessageBus([FromBody] CourseSignUpModel model)
         {
+            _logger.LogTrace("Post to SignUp/MessageBus");
+
             await _serviceBusService.SendMessage(new { model.StudentId, model.CourseId, Message = "QUEUED" });
+
+            _logger.LogInfo("Student sign up send to message bus successfully");
 
             return CreatedAtAction(nameof(SignUpMessageBus), "Message Sent");
         }

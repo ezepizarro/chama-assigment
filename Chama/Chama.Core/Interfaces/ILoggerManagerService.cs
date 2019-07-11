@@ -10,5 +10,6 @@ namespace Chama.Core.Interfaces
         void LogWarn(string message);
         void LogDebug(string message);
         void LogError(string message);
+        void LogTrace(string message);
     }
 }

@@ -4,14 +4,16 @@ using Chama.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Chama.Infrastructure.Migrations
 {
     [DbContext(typeof(ChamaDbContext))]
-    partial class ChamaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190711172933_Seeds")]
+    partial class Seeds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

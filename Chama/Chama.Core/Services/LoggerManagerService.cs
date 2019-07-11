@@ -30,6 +30,11 @@ namespace Chama.Core.Services
             logger.Info(message);
         }
 
+        public void LogTrace(string message)
+        {
+            logger.Trace(message);
+        }
+
         public void LogWarn(string message)
         {
             logger.Warn(message);
