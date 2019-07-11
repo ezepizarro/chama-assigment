@@ -2,21 +2,22 @@
 An api to sign-up students to courses
 
 #### Stack
--.Net Core 2.2.
--EF Core. 
--DDD architecture.
--Clean architecture.
--Units testing.
--Moq.
--Automapper
--Nlog
--Custom exception handler
--Azure Service Bus
--Azure Functions
--Swagger using NSwag.
--Async Generic Repository Pattern.
--MS SQL.
--Includes Seed and Migrations to set up dev environment
+- .Net Core 2.2.
+- EF Core. 
+- DDD architecture.
+- Clean architecture.
+- Units testing.
+- Moq.
+- Automapper
+- Nlog
+- Custom exception handler
+- Azure Web App 
+- Azure Service Bus
+- Azure Functions
+- Swagger using NSwag.
+- Async Generic Repository Pattern.
+- MS SQL.
+- Includes Seed and Migrations to set up dev environment
 
 #### Usage
 
@@ -24,7 +25,7 @@ An api to sign-up students to courses
 
 This has the latest commit from master branch
 
-[Using Swagger UI]()
+[Using Swagger UI]("https://chamaapi20190711053853.azurewebsites.net/swagger")
 
 ##### Running locally
 
