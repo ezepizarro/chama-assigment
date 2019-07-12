@@ -37,8 +37,10 @@ This has the latest commit from master branch
 
 [Using Swagger UI](https://chamaapi20190711053853.azurewebsites.net/swagger)
 
+### Presentation
+chama-presentation.pptx
+
 ### Running locally
 
 #### .Net CORE web API
 You will need Visual Studio 2019 with .NET Core SDK 2.2
-#### Azure Function
