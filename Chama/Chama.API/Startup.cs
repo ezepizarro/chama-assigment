@@ -46,7 +46,7 @@ namespace Chama.API
             // Swagger
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "Course Sign-up API", Version = "v1" });
             });
 
             // AutoMapper
@@ -85,7 +85,7 @@ namespace Chama.API
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Course Sign-up API V1");
             });
 
             app.ConfigureCustomExceptionMiddleware();
